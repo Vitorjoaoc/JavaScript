@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pedra Papel Tesoura</title>
+</head>
+<body>
+    <h1>Pedra, papel ou tesoura!</h1>
+    <h2 class="vencedor"></h2>
+    <hr>
+    <div class="align">
+        <div class="player-options">
+            <div><img opt="pedra" src="img/rock.png" alt=""></div>
+            <div><img opt="papel" src="img/paper.png" alt=""></div>
+            <div><img opt="tesoura" src="img/scisor.png" alt=""></div>
+        </div>
+        <div class="enemy-options">
+            <div><img opt="pedra" src="img/rock.png" alt=""></div>
+            <div><img opt="papel" src="img/paper.png" alt=""></div>
+            <div><img opt="tesoura" src="img/scisor.png" alt=""></div>
+        </div>
+    </div>
+    <script>
+        var elementos = document.querySelectorAll('.player-options div > img')
+        var playerOpt = ""
+        var inimigoOpt = ""
+        var playerPlacar = 0
+        var inimigoPlacar = 0
+        var empate = 0
+
+        function validarViotira(){
+            let vencedor = document.querySelector('.vencedor')
+
+           if(playerOpt == 'papel'){
+                if(inimigoOpt == 'papel'){
+                    //empate
+                    empate+=1
+                    vencedor.innerHTML = 'O jogo foi empate!'
+                }else if(inimigoOpt == 'tesoura') {
+                    //Inimigo ganhou
+                    inimigoPlacar+=1
+                    vencedor.innerHTML = 'O inimigo ganhou!'
+                }else if(inimigoOpt == 'pedra') {
+                    //Player ganhou
+                    playerPlacar+=1
+                    vencedor.innerHTML = 'O player ganhou!'
+                }
+           }
+
+           if(playerOpt == 'tesoura'){
+                if(inimigoOpt == 'papel'){
+                    //Player ganhou
+                    playerPlacar+=1
+                    vencedor.innerHTML = 'O player ganhou!'
+                }else if(inimigoOpt == 'tesoura') {
+                    //Empate
+                    empate+=1
+                    vencedor.innerHTML = 'O jogo foi empate!'
+                }else if(inimigoOpt == 'pedra') {
+                    //Inimigo ganhou
+                    inimigoPlacar+=1
+                    vencedor.innerHTML = 'O inimigo ganhou!'
+                }
+           }
+
+           if(playerOpt == 'pedra'){
+                if(inimigoOpt == 'papel'){
+                    //Inimigo ganhou
+                    inimigoPlacar+=1
+                    vencedor.innerHTML = 'O inimigo ganhou!'
+                }else if(inimigoOpt == 'tesoura') {
+                    //Player ganhou
+                    playerPlacar+=1
+                    vencedor.innerHTML = 'O player ganhou!'
+                }else if(inimigoOpt == 'pedra') {
+                    //Empate
+                    empate+=1
+                    vencedor.innerHTML = 'O jogo empatou!'
+                }
+           }
+        }
+
+        function resetInimigo(){
+                const enemyOptions = document.querySelectorAll('.enemy-options div');
+                for(var i = 0; i < enemyOptions.length; i++){
+                   
+                enemyOptions[i].childNodes[0].style.opacity = 0.3;
+                    
+                }
+            }
+        function inimigoJogar(){
+            let rand = Math.floor(Math.random()*3)
+
+            const enemyOptions = document.querySelectorAll('.enemy-options div')  
+            resetInimigo
+            resetInimigo()
+            for(var i = 0; i < enemyOptions.length; i++){
+                if(i == rand){
+                    enemyOptions[i].childNodes[0].style.opacity = 1
+                    inimigoOpt = enemyOptions[i].childNodes[0].getAttribute('opt')
+                }
+            }
+
+            validarViotira()
+        }
+
+        function resertOpacityPlayer(){
+            for(var i = 0; i < elementos.length; i++){
+                elementos[i].style.opacity = 0.3;
+            }
+        }
+
+        for(var i = 0; i < elementos.length; i++){ 
+            elementos[i].addEventListener('click',(t)=>{
+                resertOpacityPlayer()
+                t.target.style.opacity = 1;
+                playerOpt = t.target.getAttribute('opt')
+                
+                inimigoJogar()
+                
+            })
+        }
+    </script>
+</body>
+</html>
