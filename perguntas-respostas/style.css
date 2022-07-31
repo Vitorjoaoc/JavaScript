@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+body {
+    background-color: rgba(0, 255, 255, 0.338);
+}
+
+#principal {
+    font-size: 50px;
+    padding-bottom: 30px;
+    text-align: center;
+    margin: 40px;
+    border-bottom: 1px solid black;
+}
+
+footer {
+    margin: 10px;
+    border-top: 1px solid black;
+    text-align: end;
+}
+
